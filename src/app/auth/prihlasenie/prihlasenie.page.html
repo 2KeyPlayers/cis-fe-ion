@@ -25,9 +25,9 @@
           </ion-item>
           <ion-item>
             <ion-label position="floating">Heslo</ion-label>
-            <ion-input type="password" name="heslo" ngModel required minlength="8"></ion-input>
+            <ion-input type="password" name="heslo" ngModel required minlength="6"></ion-input>
           </ion-item>
-          <ion-button type="submit" expand="full" class="ion-margin-top" [disabled]="form.invalid">
+          <ion-button type="submit" expand="full" class="ion-margin-top" [disabled]="form.invalid || loading">
             <ion-spinner *ngIf="loading"></ion-spinner>
             <ion-text *ngIf="!loading">Prihlásiť</ion-text>
           </ion-button>

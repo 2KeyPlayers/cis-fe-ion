@@ -38,20 +38,12 @@ export class AuthService {
   }
 
   prihlasit(prezyvka: string, heslo: string) {
-    return (
-      this.http
-        .post<IUzivatel>(environment.apiUrl + 'prihlasenie', {
-          prezyvka: prezyvka,
-          heslo: heslo
-        })
-        // .pipe(map(uzivatel => new Uzivatel(uzivatel)));
-        .pipe(
-          tap(uzivatel => {
-            console.log('nastavujem uzivatela', uzivatel);
-            this._uzivatel.next(new Uzivatel(uzivatel));
-          })
-        )
-    );
+    return this.http
+      .post<IUzivatel>(environment.apiUrl + 'prihlasenie', {
+        prezyvka: prezyvka,
+        heslo: heslo
+      })
+      .pipe(tap(uzivatel => this._uzivatel.next(new Uzivatel(uzivatel))));
   }
 
   odhlasit() {

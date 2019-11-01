@@ -4,6 +4,7 @@ import { FormGroup } from '@angular/forms';
 import { DataService } from '../services/data.service';
 
 export class BasePage {
+  loading = false;
   loadingEl: HTMLIonLoadingElement;
 
   formular: FormGroup;
@@ -18,21 +19,21 @@ export class BasePage {
 
   /* Status */
 
-  get ok(): boolean {
-    return this.dataService.ok;
-  }
+  // get ok(): boolean {
+  //   return this.dataService.ok;
+  // }
 
-  get error(): boolean {
-    return !this.dataService.ok && !this.dataService.loading;
-  }
+  // get error(): boolean {
+  //   return !this.dataService.ok && !this.dataService.loading;
+  // }
 
-  get loading(): boolean {
-    return this.dataService.loading;
-  }
+  // get loading(): boolean {
+  //   return this.dataService.loading;
+  // }
 
-  get failed(): boolean {
-    return this.dataService.failed;
-  }
+  // get failed(): boolean {
+  //   return this.dataService.failed;
+  // }
 
   /* Platform */
 
@@ -100,7 +101,7 @@ export class BasePage {
     await confirm.present();
   }
 
-  /* */
+  /* Toast */
 
   async showToast(message: string, color?: string, duration?: number) {
     const toast = await this.toastCtrl.create({

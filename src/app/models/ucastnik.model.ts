@@ -2,8 +2,8 @@ import { Kruzok } from './kruzok.model';
 import { Utils } from '../shared/utils';
 
 export enum EPohlavie {
-  M,
-  Z
+  M = 'M',
+  Z = 'Z'
 }
 
 export interface Adresa {

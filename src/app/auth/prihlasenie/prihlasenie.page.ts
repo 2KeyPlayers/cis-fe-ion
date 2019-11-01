@@ -35,14 +35,18 @@ export class PrihlaseniePage extends BasePage implements OnInit {
     if (!form.valid) {
       return;
     }
+
+    this.loading = true;
     const prezyvka = form.value.prezyvka;
     const heslo = form.value.heslo;
 
     this.authService.prihlasit(prezyvka, heslo).subscribe(
       () => {
+        this.loading = false;
         this.router.navigateByUrl(this.url ? this.url : '');
       },
-      error => {
+      () => {
+        this.loading = false;
         this.showToast('Prihlásenie neúspešné!', 'danger');
       }
     );

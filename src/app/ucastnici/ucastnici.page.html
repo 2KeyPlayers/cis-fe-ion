@@ -70,7 +70,7 @@
   <ion-list>
     <ion-item *ngIf="loading">
       <ion-label class="ion-text-center">
-        <ion-spinner color="medium"></ion-spinner>
+        <ion-spinner color="primary"></ion-spinner>
       </ion-label>
     </ion-item>
     <ion-item *ngIf="!loading && ziadneData">
@@ -81,8 +81,8 @@
         {{ ucastnik.cisloRozhodnutia | number: '3.0-0' }}
       </ion-note>
       <ion-label>
+        <ion-icon [color]="ucastnik.muz ? 'blue' : 'pink'" [name]="ucastnik.muz ? 'man' : 'woman'"></ion-icon>
         {{ ucastnik.celeMeno }}
-        <!-- <ion-icon [name]="ucastnik.muz ? 'man' : 'woman'"></ion-icon> {{ ucastnik.celeMeno }} -->
         <!-- <h2><ion-icon [name]="ucastnik.muz ? 'man' : 'woman'"></ion-icon> {{ ucastnik.celeMeno }}</h2> -->
         <!-- <p>{{ ucastnik.adresa.mesto }}</p> -->
       </ion-label>

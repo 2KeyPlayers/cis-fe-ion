@@ -35,7 +35,12 @@ export class UcastniciPage extends BasePage {
   }
 
   private nacitatUcastnikov() {
-    this.dataService.getUcastnici().subscribe((ucastnici: Ucastnik[]) => (this.ucastnici = ucastnici));
+    this.ucastnici = [];
+    this.loading = true;
+    this.dataService.getUcastnici().subscribe((ucastnici: Ucastnik[]) => {
+      this.ucastnici = ucastnici;
+      this.loading = false;
+    });
   }
 
   pridatUcastnika() {

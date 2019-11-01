@@ -34,7 +34,12 @@ export class KruzkyPage extends BasePage {
   }
 
   private nacitatKruzky() {
-    this.dataService.getKruzky().subscribe((kruzky: Kruzok[]) => (this.kruzky = kruzky));
+    this.kruzky = [];
+    this.loading = true;
+    this.dataService.getKruzky().subscribe((kruzky: Kruzok[]) => {
+      this.kruzky = kruzky;
+      this.loading = false;
+    });
   }
 
   pridatKruzok() {
