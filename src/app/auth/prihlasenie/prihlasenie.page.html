@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/cvrcek" icon="home" text=""></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      CVrČkov informačný systém
+    </ion-title>
+    <ion-buttons slot="primary">
+      <ion-button disabled="true">
+        <ion-icon name="help" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [scrollEvents]="false">
+  <form #form="ngForm" (ngSubmit)="prihlasit(form)">
+    <ion-grid class="full-height">
+      <ion-row class="full-height">
+        <ion-col size-md="6" offset-md="3">
+          <ion-item>
+            <ion-label position="floating">Prezývka</ion-label>
+            <ion-input type="text" name="prezyvka" ngModel required></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Heslo</ion-label>
+            <ion-input type="password" name="heslo" ngModel required minlength="8"></ion-input>
+          </ion-item>
+          <ion-button type="submit" expand="full" class="ion-margin-top" [disabled]="form.invalid">
+            <ion-spinner *ngIf="loading"></ion-spinner>
+            <ion-text *ngIf="!loading">Prihlásiť</ion-text>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

@@ -1,0 +1,146 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import '~@ionic/angular/css/core.css';
+
+/* Basic CSS for apps built with Ionic */
+@import '~@ionic/angular/css/normalize.css';
+@import '~@ionic/angular/css/structure.css';
+@import '~@ionic/angular/css/typography.css';
+@import '~@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+@import '~@ionic/angular/css/padding.css';
+@import '~@ionic/angular/css/float-elements.css';
+@import '~@ionic/angular/css/text-alignment.css';
+@import '~@ionic/angular/css/text-transformation.css';
+@import '~@ionic/angular/css/flex-utils.css';
+
+/* Flex helpers */
+.flex-table,
+.flex-table-header {
+  display: flex !important;
+
+  .flex-table-header-item {
+    flex-basis: 100%;
+
+    ion-icon {
+      padding-left: 5px;
+      vertical-align: middle;
+    }
+  }
+
+  .flex-table-item {
+    flex-basis: 100%;
+  }
+}
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.flex-direction-row {
+  display: flex;
+  flex-direction: row;
+}
+.flex-direction-column {
+  display: flex;
+  flex-direction: column;
+}
+.flex-align-content-center {
+  display: flex;
+  align-content: center;
+}
+
+/* Custom Ionic styles */
+ion-toolbar ion-title {
+  text-align: center;
+}
+
+.ion-invalid.ion-touched ion-label {
+  color: var(--ion-color-danger);
+}
+
+// ion-list {
+//   padding-top: 0;
+//   padding-bottom: 0;
+// }
+// ion-list-header {
+//   text-transform: uppercase;
+// }
+
+// ion-note {
+//   h2 {
+//     font-size: 17px;
+//     margin-left: 0;
+//     margin-right: 0;
+//     margin-top: 0;
+//     margin-bottom: 2px;
+//     font-weight: 400;
+//   }
+
+//   h3 {
+//     margin-left: 0;
+//     margin-right: 0;
+//     margin-top: 0;
+//     margin-bottom: 0;
+//     font-size: 14px;
+//     font-weight: 400;
+//     line-height: normal;
+//   }
+// }
+
+/* Platform-specific styles */
+.md {
+  ion-note {
+    // font-size: 16px;
+  }
+  // .md-margin-vertical {
+  //   margin-top: var(--ion-margin);
+  //   margin-bottom: var(--ion-margin);
+  // }
+  // .md-margin-top {
+  //   margin-top: var(--ion-margin);
+  // }
+  // .md-margin-bottom {
+  //   margin-bottom: var(--ion-margin);
+  // }
+
+  // ion-grid {
+  //   margin-left: var(--ion-margin);
+  //   margin-right: var(--ion-margin);
+  // }
+  // ion-grid.top {
+  //   margin-top: var(--ion-margin);
+  // }
+
+  // ion-list {
+  //   padding-top: 0;
+  //   padding-bottom: 0;
+  // }
+}
+
+.ios {
+  ion-action-sheet ion-icon {
+    display: none;
+  }
+
+  ion-searchbar {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+}
+
+/* Common styles */
+.full-height {
+  height: 100%;
+}

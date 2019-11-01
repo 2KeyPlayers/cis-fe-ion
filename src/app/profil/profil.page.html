@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/cvrcek" icon="home" text=""></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      CVrČkov informačný systém
+    </ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="odhlasit()">
+        <ion-icon name="power" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="no-padding">
+    <ion-row>
+      <ion-col size-lg="6" offset-lg="3">
+        <ion-list>
+          <ion-item>
+            <ion-label>Prezývka</ion-label>
+            <ion-note slot="end">
+              {{ uzivatel?.prezyvka }}
+            </ion-note>
+          </ion-item>
+          <ion-item *ngIf="uzivatel?.titul">
+            <ion-label>Titul</ion-label>
+            <ion-note slot="end">
+              {{ uzivatel?.titul }}
+            </ion-note>
+          </ion-item>
+          <ion-item>
+            <ion-label>Meno</ion-label>
+            <ion-note slot="end">
+              {{ uzivatel?.meno }}
+            </ion-note>
+          </ion-item>
+          <ion-item>
+            <ion-label>Priezvisko</ion-label>
+            <ion-note slot="end">
+              {{ uzivatel?.priezvisko }}
+            </ion-note>
+          </ion-item>
+          <ion-item *ngIf="uzivatel?.email">
+            <ion-label>E-mail</ion-label>
+            <ion-note slot="end">
+              {{ uzivatel?.email }}
+            </ion-note>
+          </ion-item>
+          <ion-item>
+            <ion-label>Vedúci</ion-label>
+            <ion-icon [name]="uzivatel?.veduci ? 'checkbox-outline' : 'square-outline'" slot="end"></ion-icon>
+            <!-- <ion-checkbox slot="end" [checked]="uzivatel?.veduci" readonly="true"></ion-checkbox> -->
+            <!-- <ion-toggle slot="end" [checked]="uzivatel?.veduci" disabled="true"></ion-toggle> -->
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
