@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
 import { TabsPage } from './tabs.page';
-import { CvrcekComponent } from '../shared/cvrcek.component';
 import { AuthGuard } from '../auth/auth.guard';
 
 const routes: Routes = [
@@ -57,10 +57,6 @@ const routes: Routes = [
         loadChildren: () => import('../auth/prihlasenie/prihlasenie.module').then(m => m.PrihlaseniePageModule)
       }
     ]
-  },
-  {
-    path: 'cvrcek',
-    component: CvrcekComponent
   }
 ];
 

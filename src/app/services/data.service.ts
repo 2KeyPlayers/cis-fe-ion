@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 import { environment } from 'src/environments/environment';
-import { Kruzok, IKruzok } from '../models/kruzok.model';
+import { Kruzok, IKruzok, Veduci } from '../models/kruzok.model';
 import { Ucastnik, IUcastnik } from '../models/ucastnik.model';
 
 // const httpOptions = {
@@ -22,6 +22,7 @@ export enum AppStatus {
 export class DataService {
   status: AppStatus;
 
+  veduci: Veduci[];
   kruzky: Kruzok[] = [];
   ucastnici: Ucastnik[] = [];
 
@@ -51,6 +52,20 @@ export class DataService {
     console.log(message, params);
   }
 
+  /* Veduci */
+
+  getVeduci() {
+    return this.http.get<Veduci[]>(environment.apiUrl + 'veduci').pipe(tap(veduci => (this.veduci = veduci)));
+  }
+
+  // loadVeduci() {
+  //   this.http.get<Veduci[]>(environment.apiUrl + 'veduci').subscribe(veduci => (this.veduci = veduci));
+  // }
+
+  // getVeduci() {
+  //   return this.veduci;
+  // }
+
   /* Kruzky */
 
   getKruzky() {
@@ -60,6 +75,10 @@ export class DataService {
         return [...this.kruzky];
       })
     );
+  }
+
+  getKruzok(id: number) {
+    return this.http.get<IKruzok>(environment.apiUrl + 'kruzok/' + id).pipe(map(kruzok => new Kruzok(kruzok)));
   }
 
   checkKruzok(id: number, nazov: string): boolean {

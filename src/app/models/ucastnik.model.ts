@@ -30,7 +30,10 @@ export interface IUcastnik {
   // tslint:disable-next-line: variable-name
   datum_narodenia: string;
 
-  adresa: Adresa;
+  mesto: string;
+  ulica?: string;
+  cislo: number;
+  psc?: string;
 
   skola?: string;
   trieda?: string;
@@ -65,7 +68,12 @@ export class Ucastnik {
     this.priezvisko = ucastnik.priezvisko;
     this.datumNarodenia = ucastnik.datum_narodenia;
 
-    this.adresa = ucastnik.adresa;
+    this.adresa = {
+      mesto: ucastnik.mesto,
+      ulica: ucastnik.ulica,
+      cislo: ucastnik.cislo,
+      psc: ucastnik.psc
+    };
 
     this.skola = ucastnik.skola;
     this.trieda = ucastnik.trieda;

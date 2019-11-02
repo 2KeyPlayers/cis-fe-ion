@@ -21,7 +21,9 @@ export class AppComponent {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      this.config.set('backButtonText', 'Späť');
+      if (this.platform.is('ios')) {
+        this.config.set('backButtonText', 'Späť');
+      }
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });

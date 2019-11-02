@@ -117,3 +117,7 @@ ion-list {
     --inner-border-width: 0;
   }
 }
+
+ion-list-header {
+  --color: var(--ion-color-medium);
+}

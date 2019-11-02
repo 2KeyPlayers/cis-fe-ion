@@ -5,7 +5,7 @@ import { Platform, AlertController, LoadingController, ToastController } from '@
 
 import { BasePage } from '../shared/base.page';
 import { DataService } from '../services/data.service';
-import { Ucastnik, EPohlavie } from '../models/ucastnik.model';
+import { Ucastnik } from '../models/ucastnik.model';
 
 @Component({
   selector: 'app-ucastnici',
@@ -41,10 +41,6 @@ export class UcastniciPage extends BasePage {
       this.ucastnici = ucastnici;
       this.loading = false;
     });
-  }
-
-  pridatUcastnika() {
-    this.router.navigateByUrl('/ucastnik/pridat');
   }
 
   upravitUcastnika(id: number) {

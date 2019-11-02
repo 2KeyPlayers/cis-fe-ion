@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Platform, AlertController, LoadingController, ToastController } from '@ionic/angular';
 
 import { BasePage } from '../shared/base.page';
@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   templateUrl: 'kruzky.page.html',
   styleUrls: ['kruzky.page.scss']
 })
-export class KruzkyPage extends BasePage {
+export class KruzkyPage extends BasePage implements OnInit {
   kruzky: Kruzok[];
 
   constructor(
@@ -23,6 +23,11 @@ export class KruzkyPage extends BasePage {
     private router: Router
   ) {
     super(platform, alertCtrl, loadingCtrl, toastCtrl, dataService);
+  }
+
+  ngOnInit() {
+    // nacitaj veducich aby boli k dispozicii pre upravu/pridavanie
+    // this.dataService.loadVeduci();
   }
 
   ionViewWillEnter() {
@@ -42,11 +47,7 @@ export class KruzkyPage extends BasePage {
     });
   }
 
-  pridatKruzok() {
-    this.router.navigateByUrl('/kruzok/pridat');
-  }
-
   upravitKruzok(id: number) {
-    this.router.navigate(['/kruzok', id]);
+    this.router.navigate(['/tabs/kruzky/kruzok', id]);
   }
 }

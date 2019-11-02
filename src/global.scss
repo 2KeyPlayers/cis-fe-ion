@@ -70,12 +70,13 @@ ion-toolbar ion-title {
   color: var(--ion-color-danger);
 }
 
+ion-list-header {
+  text-transform: uppercase;
+}
+
 // ion-list {
 //   padding-top: 0;
 //   padding-bottom: 0;
-// }
-// ion-list-header {
-//   text-transform: uppercase;
 // }
 
 // ion-note {

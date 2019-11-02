@@ -3,11 +3,17 @@ import { FormGroup } from '@angular/forms';
 
 import { DataService } from '../services/data.service';
 
+export enum EMod {
+  Pridat,
+  Upravit
+}
+
 export class BasePage {
   loading = false;
   loadingEl: HTMLIonLoadingElement;
 
   formular: FormGroup;
+  mod: EMod;
 
   constructor(
     protected platform: Platform,
@@ -16,6 +22,20 @@ export class BasePage {
     protected toastCtrl: ToastController,
     protected dataService: DataService
   ) {}
+
+  navigateToCVrCek() {
+    window.location.href = 'https://cvcmoldava.edu.sk';
+  }
+
+  /* Mod */
+
+  get modPridat(): boolean {
+    return this.mod === EMod.Pridat;
+  }
+
+  get modUpravit(): boolean {
+    return this.mod === EMod.Upravit;
+  }
 
   /* Status */
 

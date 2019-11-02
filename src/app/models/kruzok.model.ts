@@ -1,6 +1,7 @@
-export interface Veduci {
-  meno: string;
-  priezvisko: string;
+import { EPohlavie } from './ucastnik.model';
+
+export class Veduci {
+  constructor(public id: number, public meno: string, public priezvisko: string, public titul?: string) {}
 }
 
 export interface Platba {
@@ -20,24 +21,42 @@ export interface Poplatky {
 export interface IKruzok {
   id: number;
   nazov: string;
-  veduci: Veduci;
+  veduci: number | Veduci;
   zadarmo: boolean;
   vytvoreny: string;
   upraveny: string;
   uzivatel: number;
+  idveduceho: number;
   menoveduceho: string;
   priezviskoveduceho: string;
+  titulveduceho: string;
+  ucastnici: Array<{
+    id: number;
+    pohlavie: EPohlavie;
+    meno: string;
+    priezvisko: string;
+    poplatok: number;
+    stav: string;
+  }>;
   pocetucastnikov: number;
 }
 
 export class Kruzok {
   id: number;
   nazov: string;
-  veduci: Veduci;
+  veduci: number | Veduci;
   zadarmo: boolean;
   vytvoreny: string;
   upraveny: string;
   uzivatel: number;
+  ucastnici: Array<{
+    id: number;
+    pohlavie: EPohlavie;
+    meno: string;
+    priezvisko: string;
+    poplatok: number;
+    stav: string;
+  }>;
   pocetUcastnikov: number;
 
   platby: Platba[];
@@ -45,15 +64,20 @@ export class Kruzok {
   constructor(kruzok: IKruzok) {
     this.id = kruzok.id;
     this.nazov = kruzok.nazov;
-    this.veduci = {
-      meno: kruzok.menoveduceho,
-      priezvisko: kruzok.priezviskoveduceho
-    };
+    if (kruzok.veduci instanceof Veduci) {
+      this.veduci = new Veduci(kruzok.idveduceho, kruzok.menoveduceho, kruzok.priezviskoveduceho, kruzok.titulveduceho);
+    } else {
+      this.veduci = kruzok.veduci;
+    }
     this.zadarmo = kruzok.zadarmo;
     this.vytvoreny = kruzok.vytvoreny;
     this.upraveny = kruzok.upraveny;
     this.uzivatel = kruzok.uzivatel;
     this.pocetUcastnikov = kruzok.pocetucastnikov;
+    if (kruzok.ucastnici) {
+      this.ucastnici = kruzok.ucastnici;
+      this.pocetUcastnikov = kruzok.ucastnici.length;
+    }
   }
 
   // zmenVyskuPoplatu() {
