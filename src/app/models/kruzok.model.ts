@@ -1,7 +1,12 @@
 import { EPohlavie } from './ucastnik.model';
+import { Objekt } from './objekt.model';
 
 export class Veduci {
   constructor(public id: number, public meno: string, public priezvisko: string, public titul?: string) {}
+
+  get celeMeno(): string {
+    return `${this.meno} ${this.priezvisko}`;
+  }
 }
 
 export interface Platba {
@@ -23,13 +28,14 @@ export interface IKruzok {
   nazov: string;
   veduci: number | Veduci;
   zadarmo: boolean;
-  vytvoreny: string;
-  upraveny: string;
-  uzivatel: number;
+
+  // udaje veduceho
   idveduceho: number;
   menoveduceho: string;
   priezviskoveduceho: string;
   titulveduceho: string;
+
+  // ucastnici
   ucastnici: Array<{
     id: number;
     pohlavie: EPohlavie;
@@ -39,16 +45,17 @@ export interface IKruzok {
     stav: string;
   }>;
   pocetucastnikov: number;
+
+  // uprava
+  vytvoreny?: string;
+  upraveny?: string;
+  uzivatel?: number;
 }
 
-export class Kruzok {
-  id: number;
+export class Kruzok extends Objekt {
   nazov: string;
   veduci: number | Veduci;
   zadarmo: boolean;
-  vytvoreny: string;
-  upraveny: string;
-  uzivatel: number;
   ucastnici: Array<{
     id: number;
     pohlavie: EPohlavie;
@@ -62,22 +69,27 @@ export class Kruzok {
   platby: Platba[];
 
   constructor(kruzok: IKruzok) {
-    this.id = kruzok.id;
+    super(kruzok.id, kruzok.vytvoreny, kruzok.upraveny, kruzok.uzivatel);
+
     this.nazov = kruzok.nazov;
-    if (kruzok.veduci instanceof Veduci) {
+    this.veduci = kruzok.veduci;
+    if (kruzok.idveduceho) {
       this.veduci = new Veduci(kruzok.idveduceho, kruzok.menoveduceho, kruzok.priezviskoveduceho, kruzok.titulveduceho);
-    } else {
-      this.veduci = kruzok.veduci;
     }
     this.zadarmo = kruzok.zadarmo;
-    this.vytvoreny = kruzok.vytvoreny;
-    this.upraveny = kruzok.upraveny;
-    this.uzivatel = kruzok.uzivatel;
+
     this.pocetUcastnikov = kruzok.pocetucastnikov;
     if (kruzok.ucastnici) {
       this.ucastnici = kruzok.ucastnici;
       this.pocetUcastnikov = kruzok.ucastnici.length;
     }
+  }
+
+  get celeMenoVeduceho(): string {
+    if (this.veduci instanceof Veduci) {
+      return this.veduci.celeMeno;
+    }
+    return null;
   }
 
   // zmenVyskuPoplatu() {

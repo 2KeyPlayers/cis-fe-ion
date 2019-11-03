@@ -47,7 +47,7 @@ export class PrihlaseniePage extends BasePage implements OnInit {
       },
       () => {
         this.loading = false;
-        this.showToast('Prihlásenie neúspešné!', 'danger');
+        this.showToast('Prihlásenie neúspešné!');
       }
     );
   }

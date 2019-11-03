@@ -111,10 +111,26 @@
   --ion-color-tint: var(--ion-color-pink-tint);
 }
 
-ion-list {
+ion-list.normal {
   ion-item:last-of-type {
     --border-width: 0;
     --inner-border-width: 0;
+  }
+}
+ion-list.table {
+  ion-row:last-of-type {
+    ion-item {
+      --border-width: 0;
+      --inner-border-width: 0;
+    }
+  }
+}
+ion-list.sliding {
+  ion-item-sliding:last-of-type {
+    ion-item {
+      --border-width: 0;
+      --inner-border-width: 0;
+    }
   }
 }
 

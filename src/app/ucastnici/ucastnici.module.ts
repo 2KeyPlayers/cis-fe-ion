@@ -12,11 +12,11 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'kruzok',
+    path: 'ucastnik',
     children: [
       {
         path: '',
-        loadChildren: () => import('../kruzky/kruzok/kruzok.module').then(m => m.KruzokPageModule)
+        loadChildren: () => import('../ucastnici/ucastnik/ucastnik.module').then(m => m.UcastnikPageModule)
       }
     ]
   }

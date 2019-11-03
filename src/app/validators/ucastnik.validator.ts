@@ -12,12 +12,13 @@ export class UcastnikValidator {
       const priezvisko = control.get('priezvisko');
       const datumNarodenia = control.get('datumNarodenia');
 
-      if (!dataService.checkUcastnikoveCislo(id.value, cislo.value)) {
-        return { duplicateCislo: true };
-      }
-      return dataService.checkUcastnik(+id.value, meno.value, priezvisko.value, datumNarodenia.value)
-        ? null
-        : { duplicateMeno: true };
+      // if (!dataService.checkUcastnikoveCislo(id.value, cislo.value)) {
+      //   return { duplicateCislo: true };
+      // }
+      // return dataService.checkUcastnik(+id.value, meno.value, priezvisko.value, datumNarodenia.value)
+      //   ? null
+      //   : { duplicateMeno: true };
+      return null;
     };
   }
 }

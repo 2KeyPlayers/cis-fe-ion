@@ -20,8 +20,7 @@ export class UcastniciPage extends BasePage {
     protected alertCtrl: AlertController,
     protected loadingCtrl: LoadingController,
     protected toastCtrl: ToastController,
-    protected dataService: DataService,
-    private router: Router
+    protected dataService: DataService
   ) {
     super(platform, alertCtrl, loadingCtrl, toastCtrl, dataService);
   }
@@ -41,9 +40,5 @@ export class UcastniciPage extends BasePage {
       this.ucastnici = ucastnici;
       this.loading = false;
     });
-  }
-
-  upravitUcastnika(id: number) {
-    this.router.navigate(['/ucastnik', id]);
   }
 }

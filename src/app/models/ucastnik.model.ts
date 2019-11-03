@@ -1,5 +1,6 @@
 import { Kruzok } from './kruzok.model';
 import { Utils } from '../shared/utils';
+import { Objekt } from './objekt.model';
 
 export enum EPohlavie {
   M = 'M',
@@ -11,13 +12,6 @@ export interface Adresa {
   ulica?: string;
   cislo: number;
   psc?: string;
-
-  // constructor(adresa: Adresa) {
-  //   this.ulica = adresa.ulica;
-  //   this.cislo = adresa.cislo;
-  //   this.mesto = adresa.mesto;
-  //   this.psc = adresa.psc;
-  // }
 }
 
 export interface IUcastnik {
@@ -30,21 +24,29 @@ export interface IUcastnik {
   // tslint:disable-next-line: variable-name
   datum_narodenia: string;
 
+  // adresa
   mesto: string;
   ulica?: string;
   cislo: number;
   psc?: string;
 
+  // ostatne
   skola?: string;
   trieda?: string;
   zastupca?: string;
   telefon?: string;
 
+  // kruzky
+  pocetkruzkov?: number;
   kruzky: Kruzok[];
+
+  // uprava
+  vytvoreny?: string;
+  upraveny?: string;
+  uzivatel?: number;
 }
 
-export class Ucastnik {
-  id: number;
+export class Ucastnik extends Objekt {
   cisloRozhodnutia: number;
   pohlavie: EPohlavie;
   meno: string;
@@ -58,10 +60,12 @@ export class Ucastnik {
   zastupca?: string;
   telefon?: string;
 
+  pocetKruzkov: number;
   kruzky: Kruzok[];
 
   constructor(ucastnik: IUcastnik) {
-    this.id = ucastnik.id;
+    super(ucastnik.id, ucastnik.vytvoreny, ucastnik.upraveny, ucastnik.uzivatel);
+
     this.cisloRozhodnutia = ucastnik.cislo_rozhodnutia;
     this.pohlavie = ucastnik.pohlavie;
     this.meno = ucastnik.meno;
@@ -80,7 +84,11 @@ export class Ucastnik {
     this.zastupca = ucastnik.zastupca;
     this.telefon = ucastnik.telefon;
 
-    this.kruzky = ucastnik.kruzky;
+    this.pocetKruzkov = ucastnik.pocetkruzkov;
+    if (ucastnik.kruzky) {
+      this.kruzky = ucastnik.kruzky;
+      this.pocetKruzkov = ucastnik.kruzky.length;
+    }
     // if (ucastnik.kruzky) {
     //   this.kruzky = new Array<Kruzok>();
     //   ucastnik.kruzky.forEach(kruzok => {

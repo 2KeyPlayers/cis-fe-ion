@@ -9,7 +9,7 @@ export class KruzokValidator {
       const id = control.get('id');
       const nazov = control.get('nazov');
 
-      return dataService.checkKruzok(+id.value, nazov.value) ? null : { duplicate: true };
+      return null; // dataService.checkKruzok(+id.value, nazov.value) ? null : { duplicate: true };
     };
   }
 }

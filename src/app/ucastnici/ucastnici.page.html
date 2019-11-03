@@ -73,7 +73,7 @@
   <ion-grid class="ion-no-padding" fixed>
     <ion-row>
       <ion-col class="ion-no-padding">
-        <ion-list>
+        <ion-list class="normal">
           <ion-item *ngIf="loading">
             <ion-label class="ion-text-center">
               <ion-spinner color="primary"></ion-spinner>
@@ -82,7 +82,11 @@
           <ion-item *ngIf="!loading && ziadneData">
             <ion-label color="medium" class="ion-text-center">Nenašli sa žiadni účastníci</ion-label>
           </ion-item>
-          <ion-item *ngFor="let ucastnik of ucastnici; index as i" (click)="upravitUcastnika(ucastnik.id)" button>
+          <ion-item
+            *ngFor="let ucastnik of ucastnici; index as i"
+            [routerLink]="['/tabs/ucastnici/ucastnik', ucastnik.id]"
+            button
+          >
             <ion-note slot="start">
               {{ ucastnik.cisloRozhodnutia | number: '3.0-0' }}
             </ion-note>

@@ -4,10 +4,10 @@
       <ion-back-button defaultHref="/tabs/ucastnici"></ion-back-button>
     </ion-buttons>
     <ion-title>
-      Krúžok
+      Účastník
     </ion-title>
     <ion-buttons slot="primary">
-      <ion-button (click)="ulozit()">
+      <ion-button (click)="ulozit()" [disabled]="formular.invalid">
         <ion-icon name="save" slot="icon-only"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -17,37 +17,127 @@
 <ion-content>
   <form [formGroup]="formular">
     <ion-grid class="ion-no-padding" fixed>
-      <ion-row>
+      <ion-row *ngIf="loading">
         <ion-col class="ion-no-padding">
-          <ion-list>
+          <ion-item>
+            <ion-label class="ion-text-center">
+              <ion-spinner color="primary"></ion-spinner>
+            </ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="!loading">
+        <!-- <ion-col class="ion-no-padding"> -->
+        <ion-col>
+          <ion-list class="normal">
             <ion-item *ngIf="loading">
               <ion-label class="ion-text-center">
                 <ion-spinner color="primary"></ion-spinner>
               </ion-label>
             </ion-item>
+            <ion-item lines="none" class="no-padding-right">
+              <ion-segment formControlName="pohlavie">
+                <ion-segment-button color="blue" value="M">
+                  <ion-icon name="man"></ion-icon>
+                </ion-segment-button>
+                <ion-segment-button color="pink" value="Z">
+                  <ion-icon name="woman"></ion-icon>
+                </ion-segment-button>
+              </ion-segment>
+            </ion-item>
             <ion-item>
-              <ion-label position="floating">Číslo rozhodnutia <ion-text color="danger">*</ion-text></ion-label>
+              <ion-label position="stacked">Číslo rozhodnutia <ion-text color="danger">*</ion-text></ion-label>
               <ion-input type="number" formControlName="cisloRozhodnutia"></ion-input>
             </ion-item>
             <ion-item>
-              <ion-label position="floating">Meno <ion-text color="danger">*</ion-text></ion-label>
+              <ion-label position="stacked">Meno <ion-text color="danger">*</ion-text></ion-label>
               <ion-input type="text" formControlName="meno"></ion-input>
             </ion-item>
             <ion-item>
-              <ion-label position="floating">Priezvisko <ion-text color="danger">*</ion-text></ion-label>
+              <ion-label position="stacked">Priezvisko <ion-text color="danger">*</ion-text></ion-label>
               <ion-input type="text" formControlName="priezvisko"></ion-input>
             </ion-item>
             <ion-item>
-              <ion-label position="floating">Dátum narodenia <ion-text color="danger">*</ion-text></ion-label>
-              <ion-input type="text" formControlName="datumNarodenia"></ion-input>
+              <ion-label position="stacked">Dátum narodenia <ion-text color="danger">*</ion-text></ion-label>
+              <ion-datetime
+                displayFormat="DD. MMM YYYY"
+                monthShortNames="jan, feb, mar, apr, máj, jún, júl, aug, sep, okt, nov, dec"
+                [max]="maxDatum"
+                doneText="OK"
+                cancelText="Zrušiť"
+                formControlName="datumNarodenia"
+              ></ion-datetime>
             </ion-item>
-            <ion-item formGroupName="adresa">
+            <!-- <ion-item formGroupName="adresa">
               <ion-label position="stacked">Adresa</ion-label>
-              <ion-input type="text" placeholder="Ulica" formControlName="ulica"></ion-input>
-              <ion-input type="number" placeholder="Číslo" formControlName="cislo"></ion-input>
-              <ion-input type="text" placeholder="Mesto" formControlName="mesto"></ion-input>
-              <ion-input type="number" placeholder="PSČ" formControlName="psc"></ion-input>
+            </ion-item> -->
+          </ion-list>
+        </ion-col>
+      </ion-row>
+      <ion-list *ngIf="!loading" formGroupName="adresa" class="table">
+        <ion-row>
+          <ion-col class="ion-no-padding">
+            <ion-list-header>Adresa</ion-list-header>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="8" class="ion-no-padding">
+            <ion-item>
+              <ion-label position="stacked">Ulica</ion-label>
+              <ion-input type="text" formControlName="ulica"></ion-input>
             </ion-item>
+          </ion-col>
+          <ion-col size="4" class="ion-no-padding">
+            <ion-item>
+              <ion-label position="stacked">Číslo <ion-text color="danger">*</ion-text></ion-label>
+              <ion-input type="text" formControlName="cislo"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="8" class="ion-no-padding">
+            <ion-item>
+              <ion-label position="stacked">Mesto <ion-text color="danger">*</ion-text></ion-label>
+              <ion-input type="text" formControlName="mesto"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col col="4" class="ion-no-padding">
+            <ion-item>
+              <ion-label position="stacked">PSČ</ion-label>
+              <ion-input type="text" formControlName="psc"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-list>
+      <ion-row *ngIf="!loading && modUpravit">
+        <ion-col class="ion-no-padding">
+          <ion-list class="sliding">
+            <ion-list-header>Krúžky ({{ ucastnik.pocetKruzkov }})</ion-list-header>
+            <ion-item *ngIf="ziadneData" lines="none">
+              <ion-label color="medium" class="ion-text-center"> Žiadne krúžky</ion-label>
+            </ion-item>
+            <ion-item-sliding *ngFor="let kruzok of ucastnik.kruzky; index as i">
+              <ion-item [routerLink]="['/tabs/kruzky/kruzok', kruzok.id]" button>
+                <ion-note slot="start">
+                  {{ i + 1 | number: '2.0-0' }}
+                </ion-note>
+                <ion-label>{{ kruzok.nazov }}</ion-label>
+              </ion-item>
+
+              <ion-item-options side="start">
+                <ion-item-option color="secondary">
+                  <ion-icon slot="icon-only" name="logo-euro"></ion-icon>
+                  <!-- Zaplatiť -->
+                </ion-item-option>
+              </ion-item-options>
+
+              <ion-item-options side="end">
+                <ion-item-option color="danger">
+                  <ion-icon slot="icon-only" name="close"></ion-icon>
+                  <!-- Odstrániť -->
+                </ion-item-option>
+              </ion-item-options>
+            </ion-item-sliding>
           </ion-list>
         </ion-col>
       </ion-row>

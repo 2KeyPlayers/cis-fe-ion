@@ -3,17 +3,17 @@ import { FormGroup } from '@angular/forms';
 
 import { DataService } from '../services/data.service';
 
-export enum EMod {
-  Pridat,
-  Upravit
-}
+// export enum EMod {
+//   Pridat,
+//   Upravit
+// }
 
 export class BasePage {
   loading = false;
   loadingEl: HTMLIonLoadingElement;
 
   formular: FormGroup;
-  mod: EMod;
+  // mod: EMod;
 
   constructor(
     protected platform: Platform,
@@ -30,11 +30,16 @@ export class BasePage {
   /* Mod */
 
   get modPridat(): boolean {
-    return this.mod === EMod.Pridat;
+    // return this.mod === EMod.Pridat;
+    return !this.modUpravit;
   }
 
   get modUpravit(): boolean {
-    return this.mod === EMod.Upravit;
+    // return this.mod === EMod.Upravit;
+    if (this.formular) {
+      return this.formular.value.id;
+    }
+    return false;
   }
 
   /* Status */
@@ -126,30 +131,35 @@ export class BasePage {
   async showToast(message: string, color?: string, duration?: number) {
     const toast = await this.toastCtrl.create({
       message: message,
-      color: color ? color : 'dark',
+      color: color ? color : 'danger',
       showCloseButton: true,
       closeButtonText: 'Zavrieť',
-      duration: duration ? duration : 10000
+      duration: duration ? duration : 7000
     });
     await toast.present();
   }
 
   /* Errors */
 
-  showErrorAlert(error: any, header?: string, message?: string) {
-    if (header === undefined) {
-      header = 'Chyba';
-    }
-    if (error != null && error._body != null) {
-      const body = JSON.parse(error._body);
-      if (body.code != null) {
-        this.showAlert('???', '???');
-      } else {
-        this.showAlert(header, message === undefined ? error : message);
-      }
-    } else {
-      this.showAlert(header, message === undefined ? error : message);
-    }
+  showErrorToast(error: any, message: string) {
+    // , header?: string) {
+    console.log(error);
+    this.showToast(message);
+
+    // if (header === undefined) {
+    //   header = 'Chyba';
+    // }
+
+    // if (error != null && error._body != null) {
+    //   const body = JSON.parse(error._body);
+    //   if (body.code != null) {
+    //     this.showAlert('???', '???');
+    //   } else {
+    //     this.showAlert(header, message === undefined ? error : message);
+    //   }
+    // } else {
+    //   this.showAlert(header, message === undefined ? error : message);
+    // }
   }
 
   /*handleError(error?: any, message?: string) {

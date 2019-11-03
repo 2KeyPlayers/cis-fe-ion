@@ -7,7 +7,7 @@
       Krúžok
     </ion-title>
     <ion-buttons slot="primary">
-      <ion-button (click)="ulozit()">
+      <ion-button (click)="ulozit()" [disabled]="formular.invalid">
         <ion-icon name="save" slot="icon-only"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -19,7 +19,7 @@
     <ion-grid class="ion-no-padding" fixed>
       <ion-row>
         <ion-col class="ion-no-padding">
-          <ion-list *ngIf="loading">
+          <ion-list *ngIf="loading" class="normal">
             <ion-item>
               <ion-label class="ion-text-center">
                 <ion-spinner color="primary"></ion-spinner>
@@ -27,7 +27,7 @@
             </ion-item>
           </ion-list>
 
-          <ion-list *ngIf="!loading">
+          <ion-list *ngIf="!loading" class="normal">
             <ion-item>
               <ion-label position="stacked">Názov <ion-text color="danger">*</ion-text></ion-label>
               <ion-input type="text" formControlName="nazov"></ion-input>
@@ -41,31 +41,38 @@
               </ion-select>
             </ion-item>
             <ion-item>
-              <ion-label position="stacked">Zadarmo?</ion-label>
+              <ion-label position="stacked">Zadarmo</ion-label>
               <ion-toggle formControlName="zadarmo"></ion-toggle>
             </ion-item>
           </ion-list>
 
-          <ion-list *ngIf="!loading && modUpravit">
+          <ion-list *ngIf="!loading && modUpravit" class="sliding">
             <ion-list-header>Účastníci ({{ kruzok.pocetUcastnikov }})</ion-list-header>
-            <ion-item *ngIf="ziadneData">
+            <ion-item *ngIf="ziadneData" lines="none">
               <ion-label color="medium" class="ion-text-center"> Žiadni účastníci</ion-label>
             </ion-item>
-            <ion-item
-              *ngFor="let ucastnik of kruzok.ucastnici; index as i"
-              [routerLink]="['/tabs/ucastnici/ucastnik', ucastnik.id]"
-              button
-            >
-              <ion-note slot="start">
-                {{ i + 1 | number: '2.0-0' }}
-              </ion-note>
-              <ion-label>
-                <!-- <ion-icon [color]="ucastnik.muz ? 'blue' : 'pink'" [name]="ucastnik.muz ? 'man' : 'woman'"></ion-icon> -->
-                {{ ucastnik.meno }} {{ ucastnik.priezvisko }}
-              </ion-label>
-              <!-- <ion-note color="primary" slot="end">
-                </ion-note> -->
-            </ion-item>
+            <ion-item-sliding *ngFor="let ucastnik of kruzok.ucastnici; index as i">
+              <ion-item [routerLink]="['/tabs/ucastnici/ucastnik', ucastnik.id]" button>
+                <ion-note slot="start">
+                  {{ i + 1 | number: '2.0-0' }}
+                </ion-note>
+                <ion-label> {{ ucastnik.meno }} {{ ucastnik.priezvisko }} </ion-label>
+              </ion-item>
+
+              <ion-item-options side="start">
+                <ion-item-option color="secondary">
+                  <ion-icon slot="icon-only" name="logo-euro"></ion-icon>
+                  <!-- Zaplatiť -->
+                </ion-item-option>
+              </ion-item-options>
+
+              <ion-item-options side="end">
+                <ion-item-option color="danger">
+                  <ion-icon slot="icon-only" name="close"></ion-icon>
+                  <!-- Odstrániť -->
+                </ion-item-option>
+              </ion-item-options>
+            </ion-item-sliding>
           </ion-list>
         </ion-col>
       </ion-row>
