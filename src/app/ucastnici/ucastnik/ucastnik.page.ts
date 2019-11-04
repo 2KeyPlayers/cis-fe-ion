@@ -16,6 +16,8 @@ import { AuthService } from 'src/app/auth/auth.service';
   styleUrls: ['./ucastnik.page.scss']
 })
 export class UcastnikPage extends BasePage implements OnInit {
+  mod: 'normal' | 'tlac' = 'normal';
+
   ucastnik: Ucastnik;
   kruzky: Kruzok[];
 
@@ -80,6 +82,10 @@ export class UcastnikPage extends BasePage implements OnInit {
         this.loading = false;
       }
     });
+  }
+
+  zmenMod() {
+    this.mod = this.mod === 'tlac' ? 'normal' : 'tlac';
   }
 
   get ziadneData(): boolean {

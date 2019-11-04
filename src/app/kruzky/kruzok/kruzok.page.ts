@@ -16,6 +16,8 @@ import { KruzokValidator } from 'src/app/validators/kruzok.validator';
   styleUrls: ['./kruzok.page.scss']
 })
 export class KruzokPage extends BasePage implements OnInit {
+  mod: 'normal' | 'tlac' = 'normal';
+
   kruzok: Kruzok;
   veduci: Veduci[];
   ucasnici: Ucastnik[];
@@ -65,6 +67,10 @@ export class KruzokPage extends BasePage implements OnInit {
         this.loading = false;
       }
     });
+  }
+
+  zmenMod() {
+    this.mod = this.mod === 'tlac' ? 'normal' : 'tlac';
   }
 
   get ziadneData(): boolean {

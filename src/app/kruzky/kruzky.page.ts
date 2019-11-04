@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Platform, AlertController, LoadingController, ToastController } from '@ionic/angular';
 
 import { BasePage } from '../shared/base.page';
@@ -10,7 +10,7 @@ import { Kruzok } from '../models/kruzok.model';
   templateUrl: 'kruzky.page.html',
   styleUrls: ['kruzky.page.scss']
 })
-export class KruzkyPage extends BasePage {
+export class KruzkyPage extends BasePage implements OnInit {
   kruzky: Kruzok[];
 
   constructor(
@@ -23,7 +23,8 @@ export class KruzkyPage extends BasePage {
     super(platform, alertCtrl, loadingCtrl, toastCtrl, dataService);
   }
 
-  ionViewWillEnter() {
+  // ionViewWillEnter() {
+  ngOnInit() {
     this.nacitatKruzky();
   }
 

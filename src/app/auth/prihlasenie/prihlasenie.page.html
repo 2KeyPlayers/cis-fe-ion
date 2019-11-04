@@ -2,7 +2,7 @@
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-button (click)="navigateToCVrCek()">
-        <ion-icon name="home" slot="icon-only"></ion-icon>
+        <ion-icon src="/cis/assets/cvrcek-mini.svg" slot="icon-only"></ion-icon>
       </ion-button>
     </ion-buttons>
     <ion-title>
@@ -27,7 +27,7 @@
           </ion-item>
           <ion-item>
             <ion-label position="floating">Heslo</ion-label>
-            <ion-input type="password" name="heslo" ngModel required minlength="6"></ion-input>
+            <ion-input type="password" name="heslo" ngModel required minlength="5"></ion-input>
           </ion-item>
           <ion-button type="submit" expand="full" class="ion-margin-top" [disabled]="form.invalid || loading">
             <ion-spinner *ngIf="loading"></ion-spinner>

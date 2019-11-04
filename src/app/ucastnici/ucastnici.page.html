@@ -2,7 +2,7 @@
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-button (click)="navigateToCVrCek()">
-        <ion-icon name="home" slot="icon-only"></ion-icon>
+        <ion-icon src="/cis/assets/cvrcek-mini.svg" slot="icon-only"></ion-icon>
       </ion-button>
     </ion-buttons>
     <ion-title>
@@ -104,7 +104,7 @@
             <ion-item-options side="end">
               <ion-item-option
                 *ngIf="!ucastnik.potvrditVymazanie"
-                color="danger"
+                [color]="ucastnik.pocetKruzkov > 0 ? 'light' : 'danger'"
                 (click)="ucastnik.vymazat()"
                 [disabled]="ucastnik.pocetKruzkov > 0"
               >

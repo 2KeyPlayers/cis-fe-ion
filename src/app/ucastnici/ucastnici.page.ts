@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Platform, AlertController, LoadingController, ToastController } from '@ionic/angular';
@@ -12,7 +12,7 @@ import { Ucastnik } from '../models/ucastnik.model';
   templateUrl: 'ucastnici.page.html',
   styleUrls: ['ucastnici.page.scss']
 })
-export class UcastniciPage extends BasePage {
+export class UcastniciPage extends BasePage implements OnInit {
   ucastnici: Ucastnik[];
 
   constructor(
@@ -25,7 +25,8 @@ export class UcastniciPage extends BasePage {
     super(platform, alertCtrl, loadingCtrl, toastCtrl, dataService);
   }
 
-  ionViewWillEnter() {
+  // ionViewWillEnter() {
+  ngOnInit() {
     this.nacitatUcastnikov();
   }
 

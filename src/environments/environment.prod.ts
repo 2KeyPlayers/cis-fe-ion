@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://cvcmoldava.edu.sk/api/'
+  apiUrl: 'https://www.cvcmoldava.edu.sk/api/'
 };
