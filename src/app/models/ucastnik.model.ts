@@ -84,7 +84,7 @@ export class Ucastnik extends Objekt {
     this.zastupca = ucastnik.zastupca;
     this.telefon = ucastnik.telefon;
 
-    this.pocetKruzkov = ucastnik.pocetkruzkov;
+    this.pocetKruzkov = ucastnik.pocetkruzkov ? ucastnik.pocetkruzkov : 0;
     if (ucastnik.kruzky) {
       this.kruzky = ucastnik.kruzky;
       this.pocetKruzkov = ucastnik.kruzky.length;

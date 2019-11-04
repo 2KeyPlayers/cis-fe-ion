@@ -42,18 +42,42 @@
           <ion-item *ngIf="!loading && ziadneData">
             <ion-label color="medium" class="ion-text-center">Nenašli sa žiadne krúžky</ion-label>
           </ion-item>
-          <ion-item *ngFor="let kruzok of kruzky; index as i" [routerLink]="['/tabs/kruzky/kruzok', kruzok.id]" button>
-            <ion-note slot="start">
-              {{ i + 1 | number: '2.0-0' }}
-            </ion-note>
-            <ion-label>
-              <h2>{{ kruzok.nazov }}</h2>
-              <p>{{ kruzok.celeMenoVeduceho }}</p>
-            </ion-label>
-            <ion-note color="primary" slot="end">
-              {{ kruzok.pocetUcastnikov }}
-            </ion-note>
-          </ion-item>
+
+          <ion-item-sliding *ngFor="let kruzok of kruzky; index as i">
+            <ion-item [routerLink]="['/tabs/kruzky/kruzok', kruzok.id]" button>
+              <ion-note slot="start">
+                {{ i + 1 | number: '2.0-0' }}
+              </ion-note>
+              <ion-label>
+                <h2>{{ kruzok.nazov }}</h2>
+                <p>{{ kruzok.celeMenoVeduceho }}</p>
+              </ion-label>
+              <ion-note color="primary" slot="end">
+                {{ kruzok.pocetUcastnikov }}
+              </ion-note>
+            </ion-item>
+            <ion-item-options side="end">
+              <ion-item-option
+                *ngIf="!kruzok.potvrditVymazanie"
+                color="danger"
+                (click)="kruzok.vymazat()"
+                [disabled]="kruzok.pocetUcastnikov > 0"
+              >
+                <ion-icon slot="icon-only" name="trash"></ion-icon>
+              </ion-item-option>
+              <ion-item-option
+                *ngIf="kruzok.potvrditVymazanie"
+                color="danger"
+                (click)="vymazatKruzok(kruzok.id)"
+                [disabled]="kruzok.pocetUcastnikov > 0"
+              >
+                <ion-icon slot="icon-only" name="checkmark"></ion-icon>
+              </ion-item-option>
+              <!-- <ion-item-option *ngIf="kruzok.potvrditVymazanie" color="medium" (click)="kruzok.zrusit()">
+                <ion-icon slot="icon-only" name="close"></ion-icon>
+              </ion-item-option> -->
+            </ion-item-options>
+          </ion-item-sliding>
         </ion-list>
       </ion-col>
     </ion-row>

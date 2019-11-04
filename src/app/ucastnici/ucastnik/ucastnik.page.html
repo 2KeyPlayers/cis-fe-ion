@@ -19,22 +19,18 @@
     <ion-grid class="ion-no-padding" fixed>
       <ion-row *ngIf="loading">
         <ion-col class="ion-no-padding">
-          <ion-item>
+          <ion-item lines="none">
             <ion-label class="ion-text-center">
               <ion-spinner color="primary"></ion-spinner>
             </ion-label>
           </ion-item>
         </ion-col>
       </ion-row>
+
       <ion-row *ngIf="!loading">
         <!-- <ion-col class="ion-no-padding"> -->
         <ion-col>
           <ion-list class="normal">
-            <ion-item *ngIf="loading">
-              <ion-label class="ion-text-center">
-                <ion-spinner color="primary"></ion-spinner>
-              </ion-label>
-            </ion-item>
             <ion-item lines="none" class="no-padding-right">
               <ion-segment formControlName="pohlavie">
                 <ion-segment-button color="blue" value="M">
@@ -60,7 +56,9 @@
             <ion-item>
               <ion-label position="stacked">Dátum narodenia <ion-text color="danger">*</ion-text></ion-label>
               <ion-datetime
-                displayFormat="DD. MMM YYYY"
+                displayFormat="D. MMMM YYYY"
+                pickerFormat="D MMM YYYY"
+                monthNames="január, február, marec, apríl, máj, jún, júl, august, september, október, november, december"
                 monthShortNames="jan, feb, mar, apr, máj, jún, júl, aug, sep, okt, nov, dec"
                 [max]="maxDatum"
                 doneText="OK"

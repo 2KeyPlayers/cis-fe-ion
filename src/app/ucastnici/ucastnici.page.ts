@@ -41,4 +41,20 @@ export class UcastniciPage extends BasePage {
       this.loading = false;
     });
   }
+
+  onIonSwipe(event: any) {
+    console.log(event);
+  }
+
+  vymazatUcastnika(id: number) {
+    this.dataService.deleteUcastnik(id).subscribe(
+      () => {
+        this.showToast('Účastník úspešne vymazaný.', 'success');
+        this.nacitatUcastnikov();
+      },
+      error => {
+        this.showErrorToast(error, 'Chyba pri mazaní účastníka!');
+      }
+    );
+  }
 }

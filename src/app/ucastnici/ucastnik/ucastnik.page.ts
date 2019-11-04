@@ -39,7 +39,7 @@ export class UcastnikPage extends BasePage implements OnInit {
     this.formular = new FormGroup({
       id: new FormControl(null),
       cisloRozhodnutia: new FormControl(null, Validators.required),
-      pohlavie: new FormControl('M', Validators.required),
+      pohlavie: new FormControl(null, Validators.required),
       meno: new FormControl(null, Validators.required),
       priezvisko: new FormControl(null, Validators.required),
       datumNarodenia: new FormControl(null, Validators.required),
@@ -96,6 +96,10 @@ export class UcastnikPage extends BasePage implements OnInit {
     }
 
     const value = this.formular.value;
+    // adapt datumNarodenia
+    if (value.datumNarodenia) {
+      value.datumNarodenia = value.datumNarodenia.substring(0, 10);
+    }
     console.log('hodnoty formulara', value);
 
     this.dataService.skontrolujUcastnika(value.id, value.cisloRozhodnutia, value.meno, value.priezvisko).subscribe(

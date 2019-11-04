@@ -39,4 +39,20 @@ export class KruzkyPage extends BasePage {
       this.loading = false;
     });
   }
+
+  onIonSwipe(event: any) {
+    console.log(event);
+  }
+
+  vymazatKruzok(id: number) {
+    this.dataService.deleteKruzok(id).subscribe(
+      () => {
+        this.showToast('Krúžok úspešne vymazaný.', 'success');
+        this.nacitatKruzky();
+      },
+      error => {
+        this.showErrorToast(error, 'Chyba pri mazaní krúžku!');
+      }
+    );
+  }
 }

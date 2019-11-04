@@ -101,6 +101,10 @@ export class DataService {
     return this.http.patch(environment.apiUrl + 'kruzok/' + kruzok.id, body);
   }
 
+  deleteKruzok(id: number) {
+    return this.http.delete(environment.apiUrl + 'kruzok/' + id);
+  }
+
   // checkKruzok(id: number, nazov: string): boolean {
   //   if (!this.kruzky) {
   //     return true;
@@ -174,6 +178,10 @@ export class DataService {
       },
       uzivatel: ucastnik.uzivatel
     });
+  }
+
+  deleteUcastnik(id: number) {
+    return this.http.delete(environment.apiUrl + 'ucastnik/' + id);
   }
 
   // checkUcastnikoveCislo(id: number, cislo: number): boolean {
