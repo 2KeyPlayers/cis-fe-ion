@@ -46,7 +46,7 @@
             </ion-item>
           </ion-list>
 
-          <ion-list *ngIf="!loading && modUpravit" class="sliding">
+          <ion-list *ngIf="!loading && modUpravit" [class.sliding]="mod === 'normal'" [class.normal]="mod !== 'normal'">
             <ion-list-header>
               Účastníci ({{ kruzok.pocetUcastnikov }})
               <ion-text color="medium"

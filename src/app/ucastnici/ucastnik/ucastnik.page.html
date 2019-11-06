@@ -109,7 +109,7 @@
       </ion-list>
       <ion-row *ngIf="!loading && modUpravit">
         <ion-col class="ion-no-padding">
-          <ion-list class="sliding">
+          <ion-list [class.sliding]="mod === 'normal'" [class.normal]="mod !== 'normal'">
             <ion-list-header>
               Krúžky ({{ ucastnik.pocetKruzkov }})
               <ion-text color="medium"

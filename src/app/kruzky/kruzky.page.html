@@ -33,13 +33,13 @@
   <ion-grid class="ion-no-padding" fixed>
     <ion-row>
       <ion-col class="ion-no-padding">
-        <ion-list class="normal">
-          <ion-item *ngIf="loading">
+        <ion-list class="sliding">
+          <ion-item *ngIf="loading" lines="none">
             <ion-label class="ion-text-center">
               <ion-spinner color="secondary"></ion-spinner>
             </ion-label>
           </ion-item>
-          <ion-item *ngIf="!loading && ziadneData">
+          <ion-item *ngIf="!loading && ziadneData" lines="none">
             <ion-label color="medium" class="ion-text-center">Nenašli sa žiadne krúžky</ion-label>
           </ion-item>
 
