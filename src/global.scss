@@ -57,18 +57,32 @@ ion-list-header {
   text-transform: uppercase;
 }
 
-.kruzky-alert [aria-checked='true'] .alert-radio-icon {
-  border-color: var(--ion-color-secondary) !important;
-}
-.kruzky-alert [aria-checked='true'] .alert-radio-inner {
-  background: var(--ion-color-secondary) !important;
-}
 .kruzky-alert .alert-button {
   color: var(--ion-color-secondary) !important;
 }
 
 /* Platform-specific styles */
+.md {
+  .kruzky-alert {
+    [aria-checked='true'].sc-ion-alert-md .alert-radio-icon.sc-ion-alert-md {
+      border-color: var(--ion-color-secondary) !important;
+    }
+    .alert-radio-inner.sc-ion-alert-md {
+      background-color: var(--ion-color-secondary) !important;
+    }
+  }
+}
+
 .ios {
+  .kruzky-alert {
+    [aria-checked='true'].sc-ion-alert-ios .alert-radio-label.sc-ion-alert-ios {
+      color: var(--ion-color-secondary) !important;
+    }
+    [aria-checked='true'].sc-ion-alert-ios .alert-radio-inner.sc-ion-alert-ios {
+      border-color: var(--ion-color-secondary) !important;
+    }
+  }
+
   ion-action-sheet ion-icon {
     display: none;
   }
