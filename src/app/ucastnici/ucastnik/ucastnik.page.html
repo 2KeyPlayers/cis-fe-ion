@@ -28,9 +28,8 @@
       </ion-row>
 
       <ion-row *ngIf="!loading">
-        <!-- <ion-col class="ion-no-padding"> -->
-        <ion-col>
-          <ion-list class="normal">
+        <ion-col class="ion-no-padding">
+          <ion-list class="print">
             <ion-item lines="none" class="no-padding-right">
               <ion-segment formControlName="pohlavie">
                 <ion-segment-button color="blue" value="M">
@@ -66,9 +65,6 @@
                 formControlName="datumNarodenia"
               ></ion-datetime>
             </ion-item>
-            <!-- <ion-item formGroupName="adresa">
-              <ion-label position="stacked">Adresa</ion-label>
-            </ion-item> -->
           </ion-list>
         </ion-col>
       </ion-row>
@@ -107,11 +103,11 @@
           </ion-col>
         </ion-row>
       </ion-list>
-      <ion-row *ngIf="!loading && modUpravit">
+      <ion-row *ngIf="!loading">
         <ion-col class="ion-no-padding">
-          <ion-list [class.sliding]="mod === 'normal'" [class.normal]="mod !== 'normal'">
+          <ion-list>
             <ion-list-header>
-              Krúžky ({{ ucastnik.pocetKruzkov }})
+              Krúžky ({{ kruzky ? kruzky.length : 0 }})
               <ion-text color="medium"
                 ><ion-icon
                   [name]="mod === 'normal' ? 'eye-off' : 'eye'"
@@ -120,11 +116,8 @@
                 ></ion-icon
               ></ion-text>
             </ion-list-header>
-            <ion-item *ngIf="ziadneData" lines="none">
-              <ion-label color="medium" class="ion-text-center"> Žiadne krúžky</ion-label>
-            </ion-item>
             <div *ngIf="mod === 'normal'">
-              <ion-item-sliding *ngFor="let kruzok of ucastnik.kruzky; index as i">
+              <ion-item-sliding *ngFor="let kruzok of kruzky; index as i">
                 <ion-item [routerLink]="['/tabs/kruzky/kruzok', kruzok.id]" button>
                   <ion-note slot="start">
                     {{ i + 1 | number: '2.0-0' }}
@@ -146,8 +139,26 @@
                   </ion-item-option>
                 </ion-item-options>
               </ion-item-sliding>
+              <ion-item lines="none" (click)="volbaKruzkov.open()" class="ion-text-center" button>
+                <ion-label class="ion-text-center">
+                  <ion-icon name="ios-more"></ion-icon>
+                  <!-- Pridať / Zmeniť krúžky -->
+                </ion-label>
+                <ion-select
+                  formControlName="kruzky"
+                  (ionChange)="nastavKruzky()"
+                  multiple="true"
+                  cancelText="Zrušiť"
+                  class="ion-hide"
+                  #volbaKruzkov
+                >
+                  <ion-select-option *ngFor="let dostupnyKruzok of dostupneKruzky" [value]="dostupnyKruzok.id">
+                    {{ dostupnyKruzok.nazov }}
+                  </ion-select-option>
+                </ion-select>
+              </ion-item>
             </div>
-            <div *ngIf="mod === 'tlac'">
+            <div *ngIf="mod === 'tlac'" class="print">
               <ion-item *ngFor="let kruzok of ucastnik.kruzky; index as i">
                 <ion-note slot="start">
                   {{ i + 1 | number: '2.0-0' }}

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
 
 import { Platform, AlertController, LoadingController, ToastController } from '@ionic/angular';
@@ -20,6 +20,7 @@ export class UcastnikPage extends BasePage implements OnInit {
 
   ucastnik: Ucastnik;
   kruzky: Kruzok[];
+  dostupneKruzky: Kruzok[];
 
   maxDatum = new Date().toISOString();
 
@@ -51,16 +52,19 @@ export class UcastnikPage extends BasePage implements OnInit {
         mesto: new FormControl(null, Validators.required),
         psc: new FormControl(null)
       }),
+      kruzky: new FormControl([]),
       uzivatel: new FormControl(this.authService.uzivatel.id)
     });
+
+    this.dataService.getKruzky().subscribe(dostupneKruzky => (this.dostupneKruzky = dostupneKruzky));
 
     this.route.params.subscribe((params: Params) => {
       const id = +params.id;
 
       if (id) {
-        // this.mod = EMod.Upravit;
         this.dataService.getUcastnik(id).subscribe((ucastnik: Ucastnik) => {
           this.ucastnik = ucastnik;
+          this.kruzky = ucastnik.kruzky;
           this.formular.patchValue({
             id: ucastnik.id,
             cisloRozhodnutia: ucastnik.cisloRozhodnutia,
@@ -73,13 +77,18 @@ export class UcastnikPage extends BasePage implements OnInit {
               cislo: ucastnik.adresa.cislo,
               mesto: ucastnik.adresa.mesto,
               psc: ucastnik.adresa.psc
-            }
+            },
+            kruzky: ucastnik.kruzky ? ucastnik.kruzky.map(k => k.id) : []
           });
           this.loading = false;
         });
       } else {
-        // this.mod = EMod.Pridat;
-        this.loading = false;
+        this.dataService.getNasledujuceCisloRozhodnutia().subscribe((cislo: number) => {
+          this.formular.patchValue({
+            cisloRozhodnutia: cislo
+          });
+          this.loading = false;
+        });
       }
     });
   }
@@ -94,6 +103,15 @@ export class UcastnikPage extends BasePage implements OnInit {
       return false;
     }
     return true;
+  }
+
+  nastavKruzky() {
+    if (this.formular.value.kruzky && this.formular.value.kruzky.length > 0) {
+      this.kruzky = this.formular.value.kruzky.map((id: number) => this.dostupneKruzky.find(dk => dk.id === id));
+      this.kruzky.sort((k1: Kruzok, k2: Kruzok) => k1.nazov.localeCompare(k2.nazov));
+    } else {
+      this.kruzky = [];
+    }
   }
 
   ulozit() {

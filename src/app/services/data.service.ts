@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 import { environment } from 'src/environments/environment';
 import { Kruzok, IKruzok, Veduci } from '../models/kruzok.model';
 import { Ucastnik, IUcastnik } from '../models/ucastnik.model';
-import { Uzivatel } from '../models/uzivatel.model';
 
 // const httpOptions = {
 //   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -23,9 +22,12 @@ export enum AppStatus {
 export class DataService {
   status: AppStatus;
 
-  veduci: Veduci[];
-  kruzky: Kruzok[] = [];
-  ucastnici: Ucastnik[] = [];
+  // tslint:disable-next-line: variable-name
+  _veduci: Veduci[];
+  // tslint:disable-next-line: variable-name
+  _kruzky: Kruzok[] = [];
+  // tslint:disable-next-line: variable-name
+  _ucastnici: Ucastnik[] = [];
 
   constructor(private http: HttpClient) {
     this.status = AppStatus.OK;
@@ -55,17 +57,30 @@ export class DataService {
 
   /* Veduci */
 
+  get veduci(): Veduci[] {
+    return [...this._veduci];
+  }
+
   getVeduci() {
-    return this.http.get<Veduci[]>(environment.apiUrl + 'veduci').pipe(tap(veduci => (this.veduci = veduci)));
+    return this.http.get<Veduci[]>(environment.apiUrl + 'veduci').pipe(
+      map(veduci => {
+        this._veduci = veduci;
+        return this.veduci;
+      })
+    );
   }
 
   /* Kruzky */
 
+  get kruzky(): Kruzok[] {
+    return [...this._kruzky];
+  }
+
   getKruzky() {
     return this.http.get<IKruzok[]>(environment.apiUrl + 'kruzky').pipe(
       map(kruzky => {
-        this.kruzky = kruzky.map(kruzok => new Kruzok(kruzok));
-        return [...this.kruzky];
+        this._kruzky = kruzky.map(kruzok => new Kruzok(kruzok));
+        return this.kruzky;
       })
     );
   }
@@ -105,25 +120,17 @@ export class DataService {
     return this.http.delete(environment.apiUrl + 'kruzok/' + id);
   }
 
-  // checkKruzok(id: number, nazov: string): boolean {
-  //   if (!this.kruzky) {
-  //     return true;
-  //   }
-  //   const kruzok = this.kruzky.find(k => k.nazov === nazov);
-  //   if (!kruzok) {
-  //     return true;
-  //   } else {
-  //     return kruzok.id === id;
-  //   }
-  // }
-
   /* Ucastnici */
+
+  get ucastnici(): Ucastnik[] {
+    return [...this._ucastnici];
+  }
 
   getUcastnici() {
     return this.http.get<IUcastnik[]>(environment.apiUrl + 'ucastnici').pipe(
       map(ucastnici => {
-        this.ucastnici = ucastnici.map(ucastnik => new Ucastnik(ucastnik));
-        return [...this.ucastnici];
+        this._ucastnici = ucastnici.map(ucastnik => new Ucastnik(ucastnik));
+        return this.ucastnici;
       })
     );
   }
@@ -184,29 +191,9 @@ export class DataService {
     return this.http.delete(environment.apiUrl + 'ucastnik/' + id);
   }
 
-  // checkUcastnikoveCislo(id: number, cislo: number): boolean {
-  //   if (!this.ucastnici) {
-  //     return true;
-  //   }
-  //   const ucastnik = this.ucastnici.find(u => u.cisloRozhodnutia === cislo);
-  //   if (!ucastnik) {
-  //     return true;
-  //   }
-  //   return ucastnik.id === id;
-  // }
-
-  // checkUcastnik(id: number, meno: string, priezvisko: string, datum?: string): boolean {
-  //   if (!this.ucastnici) {
-  //     return true;
-  //   }
-  //   const ucastnik = this.ucastnici.find(u => u.celeMeno === meno + ' ' + priezvisko);
-  //   if (!ucastnik) {
-  //     return true;
-  //   } else {
-  //     if (ucastnik.datumNarodenia !== datum) {
-  //       return true;
-  //     }
-  //     return ucastnik.id === id;
-  //   }
-  // }
+  getNasledujuceCisloRozhodnutia() {
+    return this.http
+      .get<{ cislo: number }>(environment.apiUrl + 'ucastnik/cislo')
+      .pipe(map((vysledok: { cislo: number }) => vysledok.cislo));
+  }
 }

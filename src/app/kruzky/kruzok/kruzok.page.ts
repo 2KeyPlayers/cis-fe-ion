@@ -6,9 +6,7 @@ import { Platform, AlertController, LoadingController, ToastController } from '@
 import { BasePage } from 'src/app/shared/base.page';
 import { DataService } from 'src/app/services/data.service';
 import { Veduci, Kruzok } from 'src/app/models/kruzok.model';
-import { Ucastnik } from 'src/app/models/ucastnik.model';
 import { AuthService } from 'src/app/auth/auth.service';
-import { KruzokValidator } from 'src/app/validators/kruzok.validator';
 
 @Component({
   selector: 'app-kruzok',
@@ -20,7 +18,6 @@ export class KruzokPage extends BasePage implements OnInit {
 
   kruzok: Kruzok;
   veduci: Veduci[];
-  ucasnici: Ucastnik[];
 
   constructor(
     protected platform: Platform,
@@ -51,7 +48,6 @@ export class KruzokPage extends BasePage implements OnInit {
       const id = +params.id;
 
       if (id) {
-        // this.mod = EMod.Upravit;
         this.dataService.getKruzok(id).subscribe((kruzok: Kruzok) => {
           this.kruzok = kruzok;
           this.formular.patchValue({
@@ -63,7 +59,6 @@ export class KruzokPage extends BasePage implements OnInit {
           this.loading = false;
         });
       } else {
-        // this.mod = EMod.Pridat;
         this.loading = false;
       }
     });

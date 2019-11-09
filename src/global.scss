@@ -26,23 +26,6 @@
 @import '~@ionic/angular/css/flex-utils.css';
 
 /* Flex helpers */
-.flex-table,
-.flex-table-header {
-  display: flex !important;
-
-  .flex-table-header-item {
-    flex-basis: 100%;
-
-    ion-icon {
-      padding-left: 5px;
-      vertical-align: middle;
-    }
-  }
-
-  .flex-table-item {
-    flex-basis: 100%;
-  }
-}
 .flex-center {
   display: flex;
   align-items: center;
@@ -74,62 +57,17 @@ ion-list-header {
   text-transform: uppercase;
 }
 
-// ion-list {
-//   padding-top: 0;
-//   padding-bottom: 0;
-// }
-
-// ion-note {
-//   h2 {
-//     font-size: 17px;
-//     margin-left: 0;
-//     margin-right: 0;
-//     margin-top: 0;
-//     margin-bottom: 2px;
-//     font-weight: 400;
-//   }
-
-//   h3 {
-//     margin-left: 0;
-//     margin-right: 0;
-//     margin-top: 0;
-//     margin-bottom: 0;
-//     font-size: 14px;
-//     font-weight: 400;
-//     line-height: normal;
-//   }
-// }
-
-/* Platform-specific styles */
-.md {
-  // ion-note {
-  //   font-size: 16px;
-  // }
-  // .md-margin-vertical {
-  //   margin-top: var(--ion-margin);
-  //   margin-bottom: var(--ion-margin);
-  // }
-  // .md-margin-top {
-  //   margin-top: var(--ion-margin);
-  // }
-  // .md-margin-bottom {
-  //   margin-bottom: var(--ion-margin);
-  // }
-
-  // ion-grid {
-  //   margin-left: var(--ion-margin);
-  //   margin-right: var(--ion-margin);
-  // }
-  // ion-grid.top {
-  //   margin-top: var(--ion-margin);
-  // }
-
-  // ion-list {
-  //   padding-top: 0;
-  //   padding-bottom: 0;
-  // }
+.kruzky-alert [aria-checked='true'] .alert-radio-icon {
+  border-color: var(--ion-color-secondary) !important;
+}
+.kruzky-alert [aria-checked='true'] .alert-radio-inner {
+  background: var(--ion-color-secondary) !important;
+}
+.kruzky-alert .alert-button {
+  color: var(--ion-color-secondary) !important;
 }
 
+/* Platform-specific styles */
 .ios {
   ion-action-sheet ion-icon {
     display: none;

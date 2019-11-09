@@ -6,7 +6,7 @@
       </ion-button>
     </ion-buttons>
     <ion-title>
-      Krúžky
+      Krúžky <span *ngIf="kruzky && kruzky.length > 0">({{ kruzky.length }})</span>
     </ion-title>
     <ion-buttons slot="primary">
       <ion-button routerLink="/tabs/kruzky/kruzok">
