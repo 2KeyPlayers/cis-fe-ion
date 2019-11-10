@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Platform, AlertController, LoadingController, ToastController } from '@ionic/angular';
+import { Platform, AlertController, LoadingController, ToastController, IonItemSliding } from '@ionic/angular';
 
 import { BasePage } from '../shared/base.page';
 import { DataService } from '../services/data.service';
@@ -50,7 +50,7 @@ export class KruzkyPage extends BasePage implements OnInit {
     console.log(event);
   }
 
-  vymazatKruzok(kruzok: Kruzok, el: HTMLIonItemSlidingElement) {
+  vymazatKruzok(kruzok: Kruzok, el: IonItemSliding) {
     el.close();
     this.dataService.deleteKruzok(kruzok.id).subscribe(
       () => {

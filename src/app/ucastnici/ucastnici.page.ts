@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-
-import { Platform, AlertController, LoadingController, ToastController } from '@ionic/angular';
+import { Platform, AlertController, LoadingController, ToastController, IonItemSliding } from '@ionic/angular';
 
 import { BasePage } from '../shared/base.page';
 import { DataService } from '../services/data.service';
@@ -52,7 +50,7 @@ export class UcastniciPage extends BasePage implements OnInit {
     console.log(event);
   }
 
-  vymazatUcastnika(ucastnik: Ucastnik, el: HTMLIonItemSlidingElement) {
+  vymazatUcastnika(ucastnik: Ucastnik, el: IonItemSliding) {
     el.close();
     this.dataService.deleteUcastnik(ucastnik.id).subscribe(
       () => {

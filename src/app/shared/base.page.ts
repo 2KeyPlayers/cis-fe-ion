@@ -1,4 +1,4 @@
-import { LoadingController, AlertController, Platform, ToastController } from '@ionic/angular';
+import { LoadingController, AlertController, Platform, ToastController, IonItemSliding } from '@ionic/angular';
 import { FormGroup } from '@angular/forms';
 
 import { DataService } from '../services/data.service';
@@ -37,13 +37,13 @@ export class BasePage {
 
   /* Vymazanie */
 
-  async aktivovatVymazanie(objekt: Objekt, el: HTMLIonItemSlidingElement) {
+  async aktivovatVymazanie(objekt: Objekt, el: IonItemSliding) {
     objekt.vymazat();
     await el.close();
     await el.open('end');
   }
 
-  async zrusitVymazanie(objekt: Objekt, el: HTMLIonItemSlidingElement) {
+  async zrusitVymazanie(objekt: Objekt, el: IonItemSliding) {
     objekt.zrusit();
     await el.close();
   }
