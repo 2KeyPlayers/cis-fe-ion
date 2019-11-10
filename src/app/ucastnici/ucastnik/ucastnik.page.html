@@ -105,16 +105,16 @@
       </ion-list>
       <ion-row *ngIf="!loading">
         <ion-col class="ion-no-padding">
-          <ion-list>
+          <ion-list class="sliding">
             <ion-list-header>
               Krúžky ({{ kruzky ? kruzky.length : 0 }})
-              <ion-text color="medium"
-                ><ion-icon
+              <ion-text color="medium">
+                <ion-icon
                   [name]="mod === 'normal' ? 'eye-off' : 'eye'"
-                  style="cursor: pointer;"
+                  style="cursor: pointer; padding-left: 5px; padding-right: 5px;"
                   (click)="zmenMod()"
-                ></ion-icon
-              ></ion-text>
+                ></ion-icon>
+              </ion-text>
             </ion-list-header>
             <div *ngIf="mod === 'normal'">
               <ion-item-sliding *ngFor="let kruzok of kruzky; index as i">
@@ -139,11 +139,12 @@
                   </ion-item-option>
                 </ion-item-options>
               </ion-item-sliding>
-              <ion-item lines="none" (click)="volbaKruzkov.open()" class="ion-text-center" button>
-                <ion-label class="ion-text-center">
-                  <ion-icon name="ios-more"></ion-icon>
-                  <!-- Pridať / Zmeniť krúžky -->
-                </ion-label>
+              <!-- <ion-item lines="none" class="ion-text-center"> -->
+              <div class="ion-text-center">
+                <ion-button fill="outline" (click)="volbaKruzkov.open()">
+                  <!-- <ion-icon slot="icon-only" name="ios-more"></ion-icon> -->
+                  Pridať krúžky
+                </ion-button>
                 <ion-select
                   formControlName="kruzky"
                   (ionChange)="nastavKruzky()"
@@ -156,7 +157,8 @@
                     {{ dostupnyKruzok.nazov }}
                   </ion-select-option>
                 </ion-select>
-              </ion-item>
+              </div>
+              <!-- </ion-item> -->
             </div>
             <div *ngIf="mod === 'tlac'" class="print">
               <ion-item *ngFor="let kruzok of ucastnik.kruzky; index as i">

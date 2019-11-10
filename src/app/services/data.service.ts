@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 import { environment } from 'src/environments/environment';
 import { Kruzok, IKruzok, Veduci } from '../models/kruzok.model';
@@ -26,8 +26,10 @@ export class DataService {
   _veduci: Veduci[];
   // tslint:disable-next-line: variable-name
   _kruzky: Kruzok[] = [];
+  zmenaKruzkov = false;
   // tslint:disable-next-line: variable-name
   _ucastnici: Ucastnik[] = [];
+  zmenaUcastnikov = false;
 
   constructor(private http: HttpClient) {
     this.status = AppStatus.OK;
@@ -81,7 +83,8 @@ export class DataService {
       map(kruzky => {
         this._kruzky = kruzky.map(kruzok => new Kruzok(kruzok));
         return this.kruzky;
-      })
+      }),
+      tap(() => (this.zmenaKruzkov = false))
     );
   }
 
@@ -103,7 +106,7 @@ export class DataService {
       zadarmo: kruzok.zadarmo,
       uzivatel: kruzok.uzivatel
     };
-    return this.http.post(environment.apiUrl + 'kruzok', body);
+    return this.http.post(environment.apiUrl + 'kruzok', body).pipe(tap(() => (this.zmenaKruzkov = true)));
   }
 
   updateKruzok(kruzok: Kruzok) {
@@ -113,11 +116,13 @@ export class DataService {
       zadarmo: kruzok.zadarmo,
       uzivatel: kruzok.uzivatel
     };
-    return this.http.patch(environment.apiUrl + 'kruzok/' + kruzok.id, body);
+    return this.http
+      .patch(environment.apiUrl + 'kruzok/' + kruzok.id, body)
+      .pipe(tap(() => (this.zmenaKruzkov = true)));
   }
 
   deleteKruzok(id: number) {
-    return this.http.delete(environment.apiUrl + 'kruzok/' + id);
+    return this.http.delete(environment.apiUrl + 'kruzok/' + id).pipe(tap(() => (this.zmenaKruzkov = true)));
   }
 
   /* Ucastnici */
@@ -131,7 +136,8 @@ export class DataService {
       map(ucastnici => {
         this._ucastnici = ucastnici.map(ucastnik => new Ucastnik(ucastnik));
         return this.ucastnici;
-      })
+      }),
+      tap(() => (this.zmenaUcastnikov = false))
     );
   }
 
@@ -154,41 +160,45 @@ export class DataService {
   }
 
   insertUcastnik(ucastnik: Ucastnik) {
-    return this.http.post(environment.apiUrl + 'ucastnik', {
-      cisloRozhodnutia: ucastnik.cisloRozhodnutia,
-      pohlavie: ucastnik.pohlavie,
-      meno: ucastnik.meno,
-      priezvisko: ucastnik.priezvisko,
-      datumNarodenia: ucastnik.datumNarodenia,
-      adresa: {
-        ulica: ucastnik.adresa.ulica,
-        cislo: ucastnik.adresa.cislo,
-        mesto: ucastnik.adresa.mesto,
-        psc: ucastnik.adresa.psc
-      },
-      uzivatel: ucastnik.uzivatel
-    });
+    return this.http
+      .post(environment.apiUrl + 'ucastnik', {
+        cisloRozhodnutia: ucastnik.cisloRozhodnutia,
+        pohlavie: ucastnik.pohlavie,
+        meno: ucastnik.meno,
+        priezvisko: ucastnik.priezvisko,
+        datumNarodenia: ucastnik.datumNarodenia,
+        adresa: {
+          ulica: ucastnik.adresa.ulica,
+          cislo: ucastnik.adresa.cislo,
+          mesto: ucastnik.adresa.mesto,
+          psc: ucastnik.adresa.psc
+        },
+        uzivatel: ucastnik.uzivatel
+      })
+      .pipe(tap(() => (this.zmenaUcastnikov = true)));
   }
 
   updateUcastnik(ucastnik: Ucastnik) {
-    return this.http.patch(environment.apiUrl + 'ucastnik/' + ucastnik.id, {
-      cisloRozhodnutia: ucastnik.cisloRozhodnutia,
-      pohlavie: ucastnik.pohlavie,
-      meno: ucastnik.meno,
-      priezvisko: ucastnik.priezvisko,
-      datumNarodenia: ucastnik.datumNarodenia,
-      adresa: {
-        ulica: ucastnik.adresa.ulica,
-        cislo: ucastnik.adresa.cislo,
-        mesto: ucastnik.adresa.mesto,
-        psc: ucastnik.adresa.psc
-      },
-      uzivatel: ucastnik.uzivatel
-    });
+    return this.http
+      .patch(environment.apiUrl + 'ucastnik/' + ucastnik.id, {
+        cisloRozhodnutia: ucastnik.cisloRozhodnutia,
+        pohlavie: ucastnik.pohlavie,
+        meno: ucastnik.meno,
+        priezvisko: ucastnik.priezvisko,
+        datumNarodenia: ucastnik.datumNarodenia,
+        adresa: {
+          ulica: ucastnik.adresa.ulica,
+          cislo: ucastnik.adresa.cislo,
+          mesto: ucastnik.adresa.mesto,
+          psc: ucastnik.adresa.psc
+        },
+        uzivatel: ucastnik.uzivatel
+      })
+      .pipe(tap(() => (this.zmenaUcastnikov = true)));
   }
 
   deleteUcastnik(id: number) {
-    return this.http.delete(environment.apiUrl + 'ucastnik/' + id);
+    return this.http.delete(environment.apiUrl + 'ucastnik/' + id).pipe(tap(() => (this.zmenaUcastnikov = true)));
   }
 
   getNasledujuceCisloRozhodnutia() {

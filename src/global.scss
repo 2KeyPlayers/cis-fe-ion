@@ -57,6 +57,10 @@ ion-list-header {
   text-transform: uppercase;
 }
 
+.kruzky .item-has-focus .label-stacked {
+  color: var(--ion-color-secondary);
+}
+
 .kruzky-alert .alert-button {
   color: var(--ion-color-secondary) !important;
 }

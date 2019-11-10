@@ -25,9 +25,14 @@ export class UcastniciPage extends BasePage implements OnInit {
     super(platform, alertCtrl, loadingCtrl, toastCtrl, dataService);
   }
 
-  // ionViewWillEnter() {
   ngOnInit() {
     this.nacitatUcastnikov();
+  }
+
+  ionViewWillEnter() {
+    if (this.dataService.zmenaUcastnikov) {
+      this.nacitatUcastnikov();
+    }
   }
 
   get ziadneData(): boolean {
@@ -47,8 +52,9 @@ export class UcastniciPage extends BasePage implements OnInit {
     console.log(event);
   }
 
-  vymazatUcastnika(id: number) {
-    this.dataService.deleteUcastnik(id).subscribe(
+  vymazatUcastnika(ucastnik: Ucastnik, el: HTMLIonItemSlidingElement) {
+    el.close();
+    this.dataService.deleteUcastnik(ucastnik.id).subscribe(
       () => {
         this.showToast('Účastník úspešne vymazaný.', 'success');
         this.nacitatUcastnikov();

@@ -43,7 +43,7 @@
             <ion-label color="medium" class="ion-text-center">Nenašli sa žiadne krúžky</ion-label>
           </ion-item>
 
-          <ion-item-sliding *ngFor="let kruzok of kruzky; index as i">
+          <ion-item-sliding *ngFor="let kruzok of kruzky; index as i" #slidingItem>
             <ion-item [routerLink]="['/tabs/kruzky/kruzok', kruzok.id]" button>
               <ion-note slot="start">
                 {{ i + 1 | number: '2.0-0' }}
@@ -60,7 +60,7 @@
               <ion-item-option
                 *ngIf="!kruzok.potvrditVymazanie"
                 [color]="kruzok.pocetUcastnikov > 0 ? 'light' : 'danger'"
-                (click)="kruzok.vymazat()"
+                (click)="aktivovatVymazanie(kruzok, slidingItem)"
                 [disabled]="kruzok.pocetUcastnikov > 0"
               >
                 <ion-icon slot="icon-only" name="trash"></ion-icon>
@@ -68,14 +68,18 @@
               <ion-item-option
                 *ngIf="kruzok.potvrditVymazanie"
                 color="danger"
-                (click)="vymazatKruzok(kruzok.id)"
+                (click)="vymazatKruzok(kruzok, slidingItem)"
                 [disabled]="kruzok.pocetUcastnikov > 0"
               >
                 <ion-icon slot="icon-only" name="checkmark"></ion-icon>
               </ion-item-option>
-              <!-- <ion-item-option *ngIf="kruzok.potvrditVymazanie" color="medium" (click)="kruzok.zrusit()">
+              <ion-item-option
+                *ngIf="kruzok.potvrditVymazanie"
+                color="medium"
+                (click)="zrusitVymazanie(kruzok, slidingItem)"
+              >
                 <ion-icon slot="icon-only" name="close"></ion-icon>
-              </ion-item-option> -->
+              </ion-item-option>
             </ion-item-options>
           </ion-item-sliding>
         </ion-list>

@@ -2,18 +2,13 @@ import { LoadingController, AlertController, Platform, ToastController } from '@
 import { FormGroup } from '@angular/forms';
 
 import { DataService } from '../services/data.service';
-
-// export enum EMod {
-//   Pridat,
-//   Upravit
-// }
+import { Objekt } from '../models/objekt.model';
 
 export class BasePage {
   loading = false;
   loadingEl: HTMLIonLoadingElement;
 
   formular: FormGroup;
-  // mod: EMod;
 
   constructor(
     protected platform: Platform,
@@ -30,16 +25,27 @@ export class BasePage {
   /* Mod */
 
   get modPridat(): boolean {
-    // return this.mod === EMod.Pridat;
     return !this.modUpravit;
   }
 
   get modUpravit(): boolean {
-    // return this.mod === EMod.Upravit;
     if (this.formular) {
       return this.formular.value.id;
     }
     return false;
+  }
+
+  /* Vymazanie */
+
+  async aktivovatVymazanie(objekt: Objekt, el: HTMLIonItemSlidingElement) {
+    objekt.vymazat();
+    await el.close();
+    await el.open('end');
+  }
+
+  async zrusitVymazanie(objekt: Objekt, el: HTMLIonItemSlidingElement) {
+    objekt.zrusit();
+    await el.close();
   }
 
   /* Status */

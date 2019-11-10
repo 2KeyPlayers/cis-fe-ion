@@ -23,9 +23,14 @@ export class KruzkyPage extends BasePage implements OnInit {
     super(platform, alertCtrl, loadingCtrl, toastCtrl, dataService);
   }
 
-  // ionViewWillEnter() {
   ngOnInit() {
     this.nacitatKruzky();
+  }
+
+  ionViewWillEnter() {
+    if (this.dataService.zmenaKruzkov) {
+      this.nacitatKruzky();
+    }
   }
 
   get ziadneData(): boolean {
@@ -45,8 +50,9 @@ export class KruzkyPage extends BasePage implements OnInit {
     console.log(event);
   }
 
-  vymazatKruzok(id: number) {
-    this.dataService.deleteKruzok(id).subscribe(
+  vymazatKruzok(kruzok: Kruzok, el: HTMLIonItemSlidingElement) {
+    el.close();
+    this.dataService.deleteKruzok(kruzok.id).subscribe(
       () => {
         this.showToast('Krúžok úspešne vymazaný.', 'success');
         this.nacitatKruzky();
