@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+
 import { ProfilPage } from './profil.page';
 
 @NgModule({
@@ -10,7 +11,18 @@ import { ProfilPage } from './profil.page';
     IonicModule,
     CommonModule,
     FormsModule,
-    RouterModule.forChild([{ path: '', component: ProfilPage }])
+    RouterModule.forChild([
+      { path: '', component: ProfilPage, pathMatch: 'full' },
+      {
+        path: 'zmena-hesla',
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('../profil/zmena-hesla/zmena-hesla.module').then(m => m.ZmenaHeslaPageModule)
+          }
+        ]
+      }
+    ])
   ],
   declarations: [ProfilPage]
 })

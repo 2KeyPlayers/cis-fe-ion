@@ -53,11 +53,12 @@
           </ion-item>
           <ion-item>
             <ion-label>Vedúci</ion-label>
-            <ion-icon
-              color="medium"
-              [name]="uzivatel?.veduci ? 'checkbox-outline' : 'square-outline'"
-              slot="end"
-            ></ion-icon>
+            <ion-icon color="medium" [name]="uzivatel?.veduci ? 'checkmark' : 'close'" slot="end"></ion-icon>
+          </ion-item>
+        </ion-list>
+        <ion-list class="normal">
+          <ion-item routerLink="/tabs/profil/zmena-hesla" detail>
+            Zmena hesla
           </ion-item>
         </ion-list>
       </ion-col>

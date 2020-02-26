@@ -16,12 +16,10 @@ export interface Adresa {
 
 export interface IUcastnik {
   id: number;
-  // tslint:disable-next-line: variable-name
   cislo_rozhodnutia: number;
   pohlavie: EPohlavie;
   meno: string;
   priezvisko: string;
-  // tslint:disable-next-line: variable-name
   datum_narodenia: string;
 
   // adresa

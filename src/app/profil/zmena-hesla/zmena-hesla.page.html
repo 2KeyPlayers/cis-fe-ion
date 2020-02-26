@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar color="tertiary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/profil"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      Zmena hesla
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form #form="ngForm" (ngSubmit)="ZmenitHeslo(form)">
+    <ion-grid class="ion-no-padding" fixed>
+      <ion-row>
+        <ion-col class="ion-no-padding">
+          <ion-item>
+            <ion-label>Aktuálne heslo</ion-label>
+            <ion-input type="password" name="aktualneHeslo" class="ion-text-right" ngModel required></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Nové heslo</ion-label>
+            <ion-input type="password" name="noveHeslo" class="ion-text-right" ngModel required></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Potvrdiť heslo</ion-label>
+            <ion-input type="password" name="noveHeslo2" class="ion-text-right" ngModel required></ion-input>
+          </ion-item>
+          <ion-button type="submit" expand="full" color="tertiary" class="ion-margin-top">
+            <ion-text>Zmeniť</ion-text>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

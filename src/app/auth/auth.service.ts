@@ -10,20 +10,18 @@ import { Uzivatel, IUzivatel } from '../models/uzivatel.model';
   providedIn: 'root'
 })
 export class AuthService {
-  // tslint:disable-next-line: variable-name
   private _uzivatel = new BehaviorSubject<Uzivatel>(null);
 
-  // tslint:disable-next-line: variable-name
   // private _uzivatel = new BehaviorSubject<Uzivatel>(
   //   new Uzivatel({
   //     id: 1,
-  //     prezyvka: 'Patrik',
+  //     prezyvka: 'Admin',
   //     email: null,
   //     meno: 'Patrik',
   //     priezvisko: 'Tóth',
   //     titul: 'Ing.',
   //     veduci: false,
-  //     token: 'UGF0cmlrOkhlc2xvMTIzNA=='
+  //     token: 'QWRtaW46aGVzbG8='
   //   })
   // );
 

@@ -22,12 +22,9 @@ export enum AppStatus {
 export class DataService {
   status: AppStatus;
 
-  // tslint:disable-next-line: variable-name
   _veduci: Veduci[];
-  // tslint:disable-next-line: variable-name
   _kruzky: Kruzok[] = [];
   zmenaKruzkov = false;
-  // tslint:disable-next-line: variable-name
   _ucastnici: Ucastnik[] = [];
   zmenaUcastnikov = false;
 
@@ -55,6 +52,15 @@ export class DataService {
 
   private log(message?: any, ...params: any[]) {
     console.log(message, params);
+  }
+
+  /* Uzivatel */
+
+  postHeslo(data: { id: number; aktualneHeslo: string; noveHeslo: string }) {
+    return this.http.post<{ zmenaHeslaUspesna: boolean }>(environment.apiUrl + 'uzivatel/' + data.id + 'heslo', {
+      aktualneHeslo: data.aktualneHeslo,
+      noveHeslo: data.noveHeslo
+    });
   }
 
   /* Veduci */
